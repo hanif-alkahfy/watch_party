@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <!-- Background Gradient inside the rounded square icon -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F73DF" />
+      <stop offset="100%" stop-color="#8041D9" />
+    </linearGradient>
+
+    <!-- Icon Stroke Gradient -->
+    <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A5C7FF" />
+      <stop offset="50%" stop-color="#C29EFF" />
+      <stop offset="100%" stop-color="#A259FF" />
+    </linearGradient>
+  </defs>
+
+  <!-- Main Rounded Icon Container filling the canvas -->
+  <rect x="0" y="0" width="512" height="512" rx="128" fill="url(#bgGrad)" />
+
+  <!-- Inner Movie & Party Artwork Group -->
+  <g fill="none" stroke="url(#strokeGrad)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center Play Button (Movie Element) -->
+    <path d="M225 158 L335 224 C344 229 344 243 335 248 L225 314 C215 320 202 313 202 302 L202 170 C202 159 215 152 225 158 Z" fill="url(#bgGrad)" stroke-width="18" />
+
+    <!-- Left User (Party Element) -->
+    <circle cx="165" cy="290" r="30" />
+    <path d="M120 370 C120 335 140 330 165 330 C180 330 195 333 205 344" />
+
+    <!-- Right User (Party Element) -->
+    <circle cx="347" cy="290" r="30" />
+    <path d="M392 370 C392 335 372 330 347 330 C332 330 317 333 307 344" />
+
+    <!-- Bottom Curved Base / Horizon Line -->
+    <path d="M125 405 C180 375 332 375 387 405" stroke-width="18" />
+  </g>
+</svg>

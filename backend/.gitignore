@@ -1,0 +1,9 @@
+.env
+data/
+media/source/
+media/hls/
+*.db
+*.db-shm
+*.db-wal
+app
+app.exe
