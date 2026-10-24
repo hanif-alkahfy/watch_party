@@ -177,14 +177,21 @@ export function Player({
       const resume = () => {
         if (video.paused) video.play().catch(() => {})
       }
+      // 1. Kick off playback immediately so the pipeline is un-paused.
       resume()
-      // Retry once the surface has stabilised (≈ ½ second).
-      setTimeout(() => {
-        if (video.paused) resume()
-        // Small nudge to force the compositor to re‑render the stuck frame.
+      // 2. Request an animation-frame callback – the browser will fire it
+      //    before the next composite, giving the compositor a chance to paint
+      //    a fresh frame instead of the frozen fullscreen frame.
+      requestAnimationFrame(() => {
+        resume()
+        // Small nudge to force a repaint of the surface; safe once readyState ≥ 2.
         if (!video.seeking && video.readyState >= 2) {
           try { video.currentTime += 0.04 } catch {}
         }
+      })
+      // 3. Fallback retry if the surface needs longer to stabilise.
+      setTimeout(() => {
+        if (video.paused) resume()
       }, 500)
     }
     const onChange = () => {
