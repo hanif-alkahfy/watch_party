@@ -172,18 +172,20 @@ export function Player({
       }, 400)
     }
     const onExit = () => {
+      // Always try to resume – the OS may have paused the surface.
       hlsRef.current?.startLoad()
-      if (!wasPlaying) return
-      resumeAttempts = 0
-      if (video.readyState < 2) {
-        video.addEventListener('canplay', () => {
-          tryResume()
-          nudge()
-        }, { once: true })
-        return
+      const resume = () => {
+        if (video.paused) video.play().catch(() => {})
       }
-      tryResume()
-      nudge()
+      resume()
+      // Retry once the surface has stabilised (≈ ½ second).
+      setTimeout(() => {
+        if (video.paused) resume()
+        // Small nudge to force the compositor to re‑render the stuck frame.
+        if (!video.seeking && video.readyState >= 2) {
+          try { video.currentTime += 0.04 } catch {}
+        }
+      }, 500)
     }
     const onChange = () => {
       const el = document.fullscreenElement || document.webkitFullscreenElement
